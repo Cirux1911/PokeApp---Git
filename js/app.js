@@ -1,4 +1,4 @@
-import { pokemones } from "./db/pokemones.js";
+import { pokemones } from "./persistencia.js";
 import { usuarios } from "./db/usuarios.js";
 
 const app = document.querySelector("#app");

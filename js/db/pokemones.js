@@ -18,7 +18,7 @@ export const pokemonesDefecto = [
     imagen: "./assets/img/bulbasaur.png",
     sonido: "./assets/sound/bulbasaur.mp3",
     shiny: true,
-    imagenShiny: "./assets/img/bulbasaur-shiny.png",
+    imagenShiny: "./assets/img/Bulbasaur-shiny.png",
   },
 
   {
@@ -62,7 +62,7 @@ export const pokemonesDefecto = [
     imagen: "./assets/img/squirtle.png",
     sonido: "./assets/sound/squirtle.mp3",
     shiny: true,
-    imagenShiny: "./assets/img/squirtle-shiny.png",
+    imagenShiny: "./assets/img/Squirtle-shiny.png",
   },
 
   {
