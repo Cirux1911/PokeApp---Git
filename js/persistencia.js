@@ -1,6 +1,8 @@
 
 import { pokemonesDefecto } from "./db/pokemones.js";
 
+import { usuariosDefecto } from "./db/usuarios.js";
+
 let pokemones = [];
 
 let pokemonesGuardados = localStorage.getItem("pokemones");
@@ -17,7 +19,19 @@ function guardarPokemones() {
   localStorage.setItem("pokemones", JSON.stringify(pokemones));
 }
 
-export { pokemones, guardarPokemones };
+let usuarios = usuariosDefecto;
+
+const usuariosGuardados = localStorage.getItem("usuarios");
+
+if (usuariosGuardados !== null) {
+  usuarios = JSON.parse(usuariosGuardados);
+}
+
+function guardarUsuarios() {
+  localStorage.setItem("usuarios", JSON.stringify(usuarios));
+}
+
+export { pokemones, guardarPokemones, usuarios, guardarUsuarios };
 
 
 

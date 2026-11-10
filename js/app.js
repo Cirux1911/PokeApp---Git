@@ -1,7 +1,8 @@
-import { pokemones } from "./persistencia.js";
-import { usuarios } from "./db/usuarios.js";
+import { pokemones, usuarios, guardarUsuarios } from "./persistencia.js";
 
 const app = document.querySelector("#app");
+
+let usuarioActivo = null;
 
 // Cada opción del menú muestra una pantalla, sin recargar la página.
 const pantallas = {
@@ -31,13 +32,13 @@ const pantallas = {
     <h1>Registrarse</h1>
     <form id="form-registro">
       <label for="nombre"> Nombre </label>
-      <input type="text" id="nombre" />
+      <input type="text" id="nombre" required />
       <label for="email"> Email </label>
-      <input type="email" id="email" />
+      <input type="email" id="email" required />
       <label for="nuevo-username"> Usuario </label>
-      <input type="text" id="nuevo-username" />
+      <input type="text" id="nuevo-username" required />
       <label for="nueva-password"> Contraseña </label>
-      <input type="password" id="nueva-password" />
+      <input type="password" id="nueva-password" required minlength="6" />
       <button type="submit">Registrarse</button>
     </form>
   </section>`,
@@ -97,7 +98,7 @@ function mostrarDetalle(id) {
 
       app.innerHTML = `
         <article class="pokemon-card" style="max-width:600px; margin:auto">
-          <div class="pokemon-image">
+          <div class="pokemon-image" style="height: 220px; aspect-ratio: auto">
             <img src="${p.imagen}" alt="${p.nombre}">
           </div>
 
@@ -134,20 +135,88 @@ function mostrarDetalle(id) {
 
 
 
+
 function validarLogin(event) {
   event.preventDefault();
+
   const username = document.querySelector("#username").value;
   const password = document.querySelector("#password").value;
-  const usuario = usuarios.find(u => u.username === username && u.password === password);
-  alert(usuario ? "Bienvenido " + usuario.nombre : "Usuario o contraseña incorrectos");
+
+  for (let usuario of usuarios) {
+    if (usuario.username === username && usuario.password === password) {
+      usuarioActivo = usuario;
+      mostrar("landing");
+      return;
+    }
+  }
+
+  alert("Usuario o contraseña incorrectos");
 }
+
+
+function registrarUsuario(event) {
+  event.preventDefault();
+
+  const nombre = document.querySelector("#nombre").value;
+  const email = document.querySelector("#email").value;
+  const username = document.querySelector("#nuevo-username").value;
+  const password = document.querySelector("#nueva-password").value;
+
+  for (let usuario of usuarios) {
+    if (usuario.username === username || usuario.email === email) {
+      alert("El usuario o email ya existe");
+      return;
+    }
+  }
+
+  const nuevoUsuario = {
+    id: usuarios.length + 1,
+    nombre: nombre,
+    email: email,
+    username: username,
+    password: password,
+    avatar: "./assets/avatar/default.png",
+    admin: false
+  };
+
+  usuarios.push(nuevoUsuario);
+  guardarUsuarios();
+
+  alert("Registro completo. Ahora podés iniciar sesión.");
+  mostrar("login");
+}
+
+
 
 function mostrar(pantalla) {
   app.innerHTML = pantallas[pantalla];
+
   if (pantalla === "pokedex") cargarPokedex();
-  if (pantalla === "login")
+
+  if (pantalla === "login") {
     document.querySelector("#form-login").addEventListener("submit", validarLogin);
+  }
+
+  if (pantalla === "registro") {
+    document.querySelector("#form-registro").addEventListener("submit", registrarUsuario);
+  }
+
+  if (pantalla === "landing" && usuarioActivo !== null) {
+    let rol = "Usuario";
+
+    if (usuarioActivo.admin === true) rol = "Administrador";
+
+    document.querySelector(".landing").innerHTML += `
+      <p>Sesión iniciada: ${usuarioActivo.nombre} (${rol})</p>
+      <button id="btn-salir">Cerrar sesión</button>`;
+
+    document.querySelector("#btn-salir").addEventListener("click", function() {
+      usuarioActivo = null;
+      mostrar("landing");
+    });
+  }
 }
+
 
 document.querySelector(".header-logo img").addEventListener("click", () => mostrar("landing"));
 

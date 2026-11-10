@@ -2,7 +2,7 @@ export const pokemonesDefecto = [
   {
     id: 1,
     nombre: "Bulbasaur",
-    descripción: "La semilla de su espalda crece con la luz solar.",
+    descripcion: "La semilla de su espalda crece con la luz solar.",
     tipo: ["Planta", "Veneno"],
     altura: 0.7,
     peso: 6.9,
@@ -16,7 +16,7 @@ export const pokemonesDefecto = [
     evolucion: "Ivysaur",
     nivelEvolucion: 16,
     rareza: "Común",
-    imagen: "./assets/img/bulbasaur.png",
+    imagen: "./assets/img/Bulbasaur.png",
     sonido: "./assets/sound/bulbasaur.mp3",
     shiny: false,
       imagenShiny: null,
@@ -25,7 +25,7 @@ export const pokemonesDefecto = [
   {
     id: 4,
     nombre: "Charmander",
-    descripción: "La llama de su cola refleja su estado de salud.",
+    descripcion: "La llama de su cola refleja su estado de salud.",
     tipo: ["Fuego"],
     altura: 0.6,
     peso: 8.5,
@@ -42,13 +42,13 @@ export const pokemonesDefecto = [
     imagen: "./assets/img/charmander.png",
     sonido: "./assets/sound/charmander.mp3",
     shiny: false,
-    imagenShiny: "./assets/img/charmander-shiny.png",
+    imagenShiny: null,
   },
 
   {
     id: 7,
     nombre: "Squirtle",
-    descripción: "Se protege con su caparazón y lanza agua.",
+    descripcion: "Se protege con su caparazón y lanza agua.",
     tipo: ["Agua"],
     altura: 0.5,
     peso: 9.0,
@@ -62,7 +62,7 @@ export const pokemonesDefecto = [
     evolucion: "Wartortle",
     nivelEvolucion: 16,
     rareza: "Común",
-    imagen: "./assets/img/squirtle.png",
+    imagen: "./assets/img/Squirtle.png",
     sonido: "./assets/sound/squirtle.mp3",
     shiny: false,
     imagenShiny: null,
@@ -71,7 +71,7 @@ export const pokemonesDefecto = [
   {
     id: 25,
     nombre: "Pikachu",
-    descripción: "Acumula electricidad en sus mejillas.",
+    descripcion: "Acumula electricidad en sus mejillas.",
     tipo: ["Eléctrico"],
     altura: 0.4,
     peso: 6.0,
@@ -94,7 +94,7 @@ export const pokemonesDefecto = [
   {
     id: 54,
     nombre: "Psyduck",
-    descripción: "Sus dolores de cabeza despiertan poderes psíquicos.",
+    descripcion: "Sus dolores de cabeza despiertan poderes psíquicos.",
     tipo: ["Agua"],
     altura: 0.8,
     peso: 19.6,
@@ -117,7 +117,7 @@ export const pokemonesDefecto = [
   {
     id: 104,
     nombre: "Cubone",
-    descripción: 	"Usa un cráneo como casco y combate con un hueso.",
+    descripcion: 	"Usa un cráneo como casco y combate con un hueso.",
     tipo: ["Tierra"],
     altura: 0.4,
     peso: 6.5,
@@ -140,7 +140,7 @@ export const pokemonesDefecto = [
   {
     id: 133,
     nombre: "Eevee",
-    descripción: "Puede evolucionar de distintas maneras.",
+    descripcion: "Puede evolucionar de distintas maneras.",
     tipo: ["Normal"],
     altura: 0.3,
     peso: 6.5,
@@ -163,7 +163,7 @@ export const pokemonesDefecto = [
   {
     id: 143,
     nombre: "Snorlax",
-    descripción: 	"Pasa la mayor parte del tiempo comiendo y durmiendo.",
+    descripcion: 	"Pasa la mayor parte del tiempo comiendo y durmiendo.",
     tipo: ["Normal"],
     altura: 2.1,
     peso: 460.0,
@@ -186,7 +186,7 @@ export const pokemonesDefecto = [
   {
     id: 150,
     nombre: "Mewtwo",
-    descripción: 	"Un Pokémon extremadamente poderoso creado mediante ingeniería genética.",
+    descripcion: 	"Un Pokémon extremadamente poderoso creado mediante ingeniería genética.",
     tipo: ["Psíquico"],
     altura: 2.0,
     peso: 122.0,
@@ -209,7 +209,7 @@ export const pokemonesDefecto = [
   {
     id: 151,
     nombre: "Mew",
-    descripción: 	"Un Pokémon mítico que posee extraordinarias capacidades.",
+    descripcion: 	"Un Pokémon mítico que posee extraordinarias capacidades.",
     tipo: ["Psíquico"],
     altura: 0.4,
     peso: 4.0,

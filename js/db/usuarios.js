@@ -1,4 +1,4 @@
-export const usuarios = [
+export const usuariosDefecto = [
   {
     id: 1,
     nombre: "Juan",
