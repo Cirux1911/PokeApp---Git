@@ -195,13 +195,16 @@ body {
 .type-planta {
   background-color: #8bc34a;
 }
+.type-veneno {
+  background-color: #ab79c2;
+}
 .type-fuego {
   background-color: #ff7043;
 }
 .type-agua {
   background-color: #64b5f6;
 }
-.type-electrico {
+.type-eléctrico {
   background-color: #ffd54f;
 }
 .type-tierra {
@@ -210,7 +213,7 @@ body {
 .type-normal {
   background-color: #d6d6d6;
 }
-.type-psiquico {
+.type-psíquico {
   background-color: #ef6cae;
 }
 .pokemon-rareza {

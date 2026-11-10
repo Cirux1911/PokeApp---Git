@@ -49,23 +49,90 @@ const pantallas = {
   </section>`,
 };
 
+
 function cargarPokedex() {
-  document.querySelector("#pokedex-gallery").innerHTML = pokemones.map(pokemon => `
-    <article class="pokemon-card">
-      <div class="pokemon-image">
-        <img src="${pokemon.imagen}" alt="${pokemon.nombre}" />
-      </div>
-      <div class="pokemon-info">
-        <span class="pokemon-id">N.º ${pokemon.id}</span>
-        <h2>${pokemon.nombre}</h2>
-        <div class="pokemon-types">
-          <span class="type type-${pokemon.tipo[0].toLowerCase()}">${pokemon.tipo[0]}</span>
+  let tarjetas = "";
+
+  for (let p of pokemones) {
+    let tipos = "";
+
+    for (let tipo of p.tipo) {
+      tipos += `<span class="type type-${tipo.toLowerCase()}">${tipo}</span>`;
+    }
+
+    tarjetas += `
+      <article class="pokemon-card">
+        <div class="pokemon-image">
+          <img src="${p.imagen}" alt="${p.nombre}">
         </div>
-        <p class="pokemon-rareza">${pokemon.rareza}</p>
-        <button class="btn-detalle" data-id="${pokemon.id}">Ver detalles</button>
-      </div>
-    </article>`).join("");
+        <div class="pokemon-info">
+          <span class="pokemon-id">N.º ${p.id}</span>
+          <h2>${p.nombre}</h2>
+          <div class="pokemon-types">${tipos}</div>
+          <p class="pokemon-rareza">${p.rareza}</p>
+          <button class="btn-detalle" value="${p.id}">Ver detalles</button>
+        </div>
+      </article>`;
+  }
+
+  const galeria = document.querySelector("#pokedex-gallery");
+  galeria.innerHTML = tarjetas;
+
+  galeria.addEventListener("click", function(event) {
+    if (event.target.className === "btn-detalle") {
+      mostrarDetalle(parseInt(event.target.value));
+    }
+  });
 }
+
+
+function mostrarDetalle(id) {
+  for (let p of pokemones) {
+    if (p.id === id) {
+      let shiny = "No disponible";
+
+      if (p.shiny && p.imagenShiny) {
+        shiny = `<img src="${p.imagenShiny}" alt="Shiny de ${p.nombre}" width="120">`;
+      }
+
+      app.innerHTML = `
+        <article class="pokemon-card" style="max-width:600px; margin:auto">
+          <div class="pokemon-image">
+            <img src="${p.imagen}" alt="${p.nombre}">
+          </div>
+
+          <div class="pokemon-info" style="line-height:1.8">
+            <h2>${p.nombre} (N.º ${p.id})</h2>
+            <p>${p.descripcion}</p>
+
+            <p><b>Tipo:</b> ${p.tipo}</p>
+            <p><b>Rareza:</b> ${p.rareza}</p>
+            <p><b>Generación:</b> ${p.generacion}</p>
+            <p><b>Altura:</b> ${p.altura} m | <b>Peso:</b> ${p.peso} kg</p>
+
+            <p><b>HP:</b> ${p.hp} | <b>Ataque:</b> ${p.ataque}</p>
+            <p><b>Defensa:</b> ${p.defensa} | <b>Velocidad:</b> ${p.velocidad}</p>
+
+            <p><b>Habilidad:</b> ${p.habilidad}</p>
+            <p><b>Evolución:</b> ${p.evolucion || "No tiene"}</p>
+            <p><b>Nivel de evolución:</b> ${p.nivelEvolucion || "No aplica"}</p>
+            <p><b>Shiny:</b> ${shiny}</p>
+
+            <audio controls src="${p.sonido}"></audio>
+            <button id="volver-pokedex" class="btn-detalle">Volver</button>
+          </div>
+        </article>`;
+
+      document.querySelector("#volver-pokedex").addEventListener("click", function() {
+        mostrar("pokedex");
+      });
+
+      return;
+    }
+  }
+}
+
+
 
 function validarLogin(event) {
   event.preventDefault();
