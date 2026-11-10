@@ -236,3 +236,23 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+#form-carga {
+  display: grid;
+  gap: 12px;
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+#form-carga label {
+  display: grid;
+  gap: 5px;
+  font-weight: bold;
+}
+
+#form-carga input,
+#form-carga select,
+#form-carga textarea {
+  padding: 10px;
+  font: inherit;
+}

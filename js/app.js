@@ -1,5 +1,4 @@
-import { pokemones, usuarios, guardarUsuarios } from "./persistencia.js";
-
+import { pokemones, usuarios, guardarUsuarios, guardarPokemones } from "./persistencia.js";
 const app = document.querySelector("#app");
 
 let usuarioActivo = null;
@@ -40,6 +39,82 @@ const pantallas = {
       <label for="nueva-password"> Contraseña </label>
       <input type="password" id="nueva-password" required minlength="6" />
       <button type="submit">Registrarse</button>
+    </form>
+  </section>`,
+
+  carga: `<section class="registro-section">
+    <h1>Cargar Pokémon</h1>
+    <form id="form-carga">
+      <label>ID
+        <input id="c-id" type="number" min="1" required>
+      </label>
+      <label>Nombre
+        <input id="c-nombre" required>
+      </label>
+      <label>Tipo principal
+        <input id="c-tipo1" required>
+      </label>
+      <label>Segundo tipo (opcional)
+        <input id="c-tipo2">
+      </label>
+      <label>Descripción
+        <textarea id="c-descripcion" required></textarea>
+      </label>
+      <label>Altura (m)
+        <input id="c-altura" type="number" min="0" step="any" required>
+      </label>
+      <label>Peso (kg)
+        <input id="c-peso" type="number" min="0" step="any" required>
+      </label>
+      <label>Generación
+        <input id="c-generacion" type="number" min="1" required>
+      </label>
+      <label>HP
+        <input id="c-hp" type="number" min="0" required>
+      </label>
+      <label>Ataque
+        <input id="c-ataque" type="number" min="0" required>
+      </label>
+      <label>Velocidad
+        <input id="c-velocidad" type="number" min="0" required>
+      </label>
+      <label>Defensa
+        <input id="c-defensa" type="number" min="0" required>
+      </label>
+      <label>Habilidad
+        <input id="c-habilidad" required>
+      </label>
+      <label>¿Tiene evolución?
+        <select id="c-tieneEvolucion">
+          <option value="false">No</option>
+          <option value="true">Sí</option>
+        </select>
+      </label>
+      <label>Evoluciona a
+        <input id="c-evolucion">
+      </label>
+      <label>Nivel de evolución
+        <input id="c-nivelEvolucion" type="number" min="1">
+      </label>
+      <label>Rareza
+        <input id="c-rareza" required>
+      </label>
+      <label>Ruta de imagen
+        <input id="c-imagen" required placeholder="./assets/img/eevee.png">
+      </label>
+      <label>Ruta de sonido
+        <input id="c-sonido" required placeholder="./assets/sound/eevee.mp3">
+      </label>
+      <label>¿Tiene shiny?
+        <select id="c-shiny">
+          <option value="false">No</option>
+          <option value="true">Sí</option>
+        </select>
+      </label>
+      <label>Ruta de imagen shiny
+        <input id="c-imagenShiny">
+      </label>
+      <button type="submit" class="btn-detalle">Guardar Pokémon</button>
     </form>
   </section>`,
 
@@ -133,9 +208,6 @@ function mostrarDetalle(id) {
   }
 }
 
-
-
-
 function validarLogin(event) {
   event.preventDefault();
 
@@ -186,12 +258,92 @@ function registrarUsuario(event) {
   mostrar("login");
 }
 
+function cargarPokemon(event) {
+  event.preventDefault();
 
+  const valor = nombre => document.querySelector("#c-" + nombre).value;
+  const id = Number(valor("id"));
+
+  for (let p of pokemones) {
+    if (p.id === id) {
+      alert("Ese ID ya existe");
+      return;
+    }
+  }
+
+  const tipos = [valor("tipo1")];
+
+  if (valor("tipo2") !== "") {
+    tipos.push(valor("tipo2"));
+  }
+
+  const tieneEvolucion = valor("tieneEvolucion") === "true";
+  let evolucion = null;
+  let nivelEvolucion = null;
+
+  if (tieneEvolucion) {
+    evolucion = valor("evolucion");
+    nivelEvolucion = Number(valor("nivelEvolucion"));
+
+    if (evolucion === "" || valor("nivelEvolucion") === "") {
+      alert("Completá la evolución y su nivel");
+      return;
+    }
+  }
+
+  const shiny = valor("shiny") === "true";
+  let imagenShiny = null;
+
+  if (shiny) {
+    imagenShiny = valor("imagenShiny");
+
+    if (imagenShiny === "") {
+      alert("Completá la imagen shiny");
+      return;
+    }
+  }
+
+  const nuevoPokemon = {
+    id: id,
+    nombre: valor("nombre"),
+    tipo: tipos,
+    descripcion: valor("descripcion"),
+    altura: Number(valor("altura")),
+    peso: Number(valor("peso")),
+    generacion: Number(valor("generacion")),
+    hp: Number(valor("hp")),
+    ataque: Number(valor("ataque")),
+    velocidad: Number(valor("velocidad")),
+    defensa: Number(valor("defensa")),
+    habilidad: valor("habilidad"),
+    tieneEvolucion: tieneEvolucion,
+    evolucion: evolucion,
+    nivelEvolucion: nivelEvolucion,
+    rareza: valor("rareza"),
+    imagen: valor("imagen"),
+    sonido: valor("sonido"),
+    shiny: shiny,
+    imagenShiny: imagenShiny
+  };
+
+  pokemones.push(nuevoPokemon);
+  guardarPokemones();
+
+  alert("Pokémon guardado");
+  mostrar("pokedex");
+}
 
 function mostrar(pantalla) {
+  if (pantalla === "carga" && (usuarioActivo === null || usuarioActivo.admin !== true)) {
+    alert("Solo los administradores pueden cargar Pokémon");
+    return;
+  }
+
   app.innerHTML = pantallas[pantalla];
 
-  if (pantalla === "pokedex") cargarPokedex();
+  if (pantalla === "pokedex") {
+    cargarPokedex();
+  }
 
   if (pantalla === "login") {
     document.querySelector("#form-login").addEventListener("submit", validarLogin);
@@ -201,14 +353,29 @@ function mostrar(pantalla) {
     document.querySelector("#form-registro").addEventListener("submit", registrarUsuario);
   }
 
+  if (pantalla === "carga") {
+    document.querySelector("#form-carga").addEventListener("submit", cargarPokemon);
+  }
+
   if (pantalla === "landing" && usuarioActivo !== null) {
     let rol = "Usuario";
 
-    if (usuarioActivo.admin === true) rol = "Administrador";
+    if (usuarioActivo.admin === true) {
+      rol = "Administrador";
+    }
 
     document.querySelector(".landing").innerHTML += `
       <p>Sesión iniciada: ${usuarioActivo.nombre} (${rol})</p>
-      <button id="btn-salir">Cerrar sesión</button>`;
+      <button id="btn-salir" class="btn-detalle">Cerrar sesión</button>`;
+
+    if (usuarioActivo.admin === true) {
+      document.querySelector(".landing").innerHTML += `
+        <button id="btn-carga" class="btn-detalle">Cargar Pokémon</button>`;
+
+      document.querySelector("#btn-carga").addEventListener("click", function() {
+        mostrar("carga");
+      });
+    }
 
     document.querySelector("#btn-salir").addEventListener("click", function() {
       usuarioActivo = null;
@@ -216,6 +383,7 @@ function mostrar(pantalla) {
     });
   }
 }
+
 
 
 document.querySelector(".header-logo img").addEventListener("click", () => mostrar("landing"));
