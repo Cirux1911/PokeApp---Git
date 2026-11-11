@@ -395,10 +395,10 @@ const enlaces = {
   "link-juego": "batalla",
 };
 
-for (const [id, pantalla] of Object.entries(enlaces)) {
-  document.getElementById(id).addEventListener("click", event => {
+for (let id in enlaces) {
+  document.querySelector("#" + id).addEventListener("click", function(event) {
     event.preventDefault();
-    mostrar(pantalla);
+    mostrar(enlaces[id]);
   });
 }
 
