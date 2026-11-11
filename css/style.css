@@ -230,3 +230,14 @@ body {
   padding: 10px;
   font: inherit;
 }
+
+.batalla-section {
+  text-align: center;
+}
+
+#opciones-batalla {
+  display: grid;
+  gap: 12px;
+  max-width: 400px;
+  margin: 20px auto;
+}

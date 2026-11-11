@@ -118,12 +118,79 @@ const pantallas = {
     </form>
   </section>`,
 
-  batalla: `<section class="batalla-section">
-    <h1>Batalla Pokémon</h1>
-    <p>Elegí tu Pokémon para comenzar.</p>
-    <button id="btn-comenzar-batalla">Comenzar batalla</button>
-  </section>`,
+ batalla: `<section class="batalla-section">
+  <h1>Batalla Pokémon</h1>
+  <p>Pikachu se enfrenta a Charmander.</p>
+  <div id="opciones-batalla">
+    <button id="btn-comenzar-batalla" class="btn-detalle">
+      Comenzar batalla
+    </button>
+  </div>
+</section>`,
 };
+
+
+const escenasBatalla = {
+  turno1: {
+    texto: "Turno 1: Pikachu se enfrenta a Charmander. ¿Qué hacés?",
+    opciones: [
+      { nombre: "Atacar", siguiente: "ataque" },
+      { nombre: "Usar poción", siguiente: "pocion" }
+    ]
+  },
+  ataque: {
+    texto: "Turno 2: Pikachu ataca a Charmander, que responde con fuego.",
+    opciones: [
+      { nombre: "Atacar otra vez", siguiente: "victoria" },
+      { nombre: "Huir", siguiente: "huida" }
+    ]
+  },
+  pocion: {
+    texto: "Turno 2: Pikachu recupera energía, pero Charmander vuelve a atacar.",
+    opciones: [
+      { nombre: "Atacar", siguiente: "derrota" },
+      { nombre: "Huir", siguiente: "huida" }
+    ]
+  },
+  victoria: {
+    texto: "¡Pikachu gana la batalla!",
+    opciones: [{ nombre: "Volver a jugar", siguiente: "turno1" }]
+  },
+  derrota: {
+    texto: "Charmander gana la batalla. ¡Podés intentarlo otra vez!",
+    opciones: [{ nombre: "Volver a jugar", siguiente: "turno1" }]
+  },
+  huida: {
+    texto: "Pikachu escapa de la batalla.",
+    opciones: [{ nombre: "Volver a jugar", siguiente: "turno1" }]
+  }
+};
+
+
+function jugarBatalla(etapa) {
+  const escena = escenasBatalla[etapa];
+  let botones = "";
+
+  for (let opcion of escena.opciones) {
+    botones += `
+      <button class="btn-detalle" value="${opcion.siguiente}">
+        ${opcion.nombre}
+      </button>`;
+  }
+
+  app.innerHTML = `
+    <section class="batalla-section">
+      <h1>Batalla Pokémon</h1>
+      <p>${escena.texto}</p>
+      <div id="opciones-batalla">${botones}</div>
+    </section>`;
+
+  document.querySelector("#opciones-batalla").addEventListener("click", function(event) {
+    if (event.target.className === "btn-detalle") {
+      jugarBatalla(event.target.value);
+    }
+  });
+}
 
 
 function cargarPokedex() {
@@ -356,6 +423,12 @@ function mostrar(pantalla) {
   if (pantalla === "carga") {
     document.querySelector("#form-carga").addEventListener("submit", cargarPokemon);
   }
+
+  if (pantalla === "batalla") {
+  document.querySelector("#btn-comenzar-batalla").addEventListener("click", function() {
+    jugarBatalla("turno1");
+  });
+}
 
   if (pantalla === "landing" && usuarioActivo !== null) {
     let rol = "Usuario";
