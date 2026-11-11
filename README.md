@@ -2,14 +2,23 @@
 
 La PokeApp es una aplicación web inspirada en el universo Pokémon, creada usando **HTML5, CSS3 y JavaScript**.
 
-El objetivo es crear una Pokédex digital donde los usuarios puedan explorar diferentes Pokémon, consultar sus características y, posteriormente, participar en batallas.
+El objetivo es ofrecer una Pokédex interactiva que permita consultar Pokémon, registrar usuarios, iniciar sesión, cargar nuevos Pokémon mediante un administrador y participar en batallas basadas en decisiones.
 
 ## Funcionalidades
 
-**Pokédex:** visualización de Pokémon mediante tarjetas con imágenes, nombres, tipos y rarezas.
-**Inicio de sesión:** validación de credenciales utilizando una lista de usuarios predefinidos.
-**Navegación dinámica:** permite cambiar entre secciones sin recargar la página.
-**Diseño responsive:** interfaz adaptable a computadoras y dispositivos móviles.
+**Pokédex:** tarjetas con imágenes, nombres, tipos y rarezas.
+
+**Detalles:** características, estadísticas y sonidos de cada Pokémon.
+
+**Usuarios:** registro, inicio y cierre de sesión.
+
+**Administrador:** carga de nuevos Pokémon.
+
+**Persistencia:** almacenamiento de usuarios y Pokémon con JSON y localStorage.
+
+**Batalla:** combate guionado con decisiones y distintos finales.
+
+**Navegación y diseño:** pantallas dinámicas y diseño responsive.
 
 ## Codigos usados
 

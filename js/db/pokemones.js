@@ -19,8 +19,8 @@ export const pokemonesDefecto = [
     imagen: "./assets/img/Bulbasaur.png",
     sonido: "./assets/sound/bulbasaur.mp3",
     shiny: false,
-      imagenShiny: null,
-    },
+    imagenShiny: null,
+  },
 
   {
     id: 4,
@@ -117,7 +117,7 @@ export const pokemonesDefecto = [
   {
     id: 104,
     nombre: "Cubone",
-    descripcion: 	"Usa un cráneo como casco y combate con un hueso.",
+    descripcion: "Usa un cráneo como casco y combate con un hueso.",
     tipo: ["Tierra"],
     altura: 0.4,
     peso: 6.5,
@@ -163,7 +163,7 @@ export const pokemonesDefecto = [
   {
     id: 143,
     nombre: "Snorlax",
-    descripcion: 	"Pasa la mayor parte del tiempo comiendo y durmiendo.",
+    descripcion: "Pasa la mayor parte del tiempo comiendo y durmiendo.",
     tipo: ["Normal"],
     altura: 2.1,
     peso: 460.0,
@@ -186,7 +186,7 @@ export const pokemonesDefecto = [
   {
     id: 150,
     nombre: "Mewtwo",
-    descripcion: 	"Un Pokémon extremadamente poderoso creado mediante ingeniería genética.",
+    descripcion: "Un Pokémon extremadamente poderoso creado mediante ingeniería genética.",
     tipo: ["Psíquico"],
     altura: 2.0,
     peso: 122.0,
@@ -209,7 +209,7 @@ export const pokemonesDefecto = [
   {
     id: 151,
     nombre: "Mew",
-    descripcion: 	"Un Pokémon mítico que posee extraordinarias capacidades.",
+    descripcion: "Un Pokémon mítico que posee extraordinarias capacidades.",
     tipo: ["Psíquico"],
     altura: 0.4,
     peso: 4.0,

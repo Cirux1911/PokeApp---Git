@@ -23,7 +23,7 @@ const pantallas = {
       <input type="text" id="username" required />
       <label for="password"> Contraseña </label>
       <input type="password" id="password" required />
-      <button type="submit">Ingresar</button>
+      <button type="submit" class="btn-detalle">Ingresar</button>
     </form>
   </section>`,
 
@@ -38,7 +38,7 @@ const pantallas = {
       <input type="text" id="nuevo-username" required />
       <label for="nueva-password"> Contraseña </label>
       <input type="password" id="nueva-password" required minlength="6" />
-      <button type="submit">Registrarse</button>
+      <button type="submit" class="btn-detalle">Registrarse</button>
     </form>
   </section>`,
 
@@ -118,7 +118,7 @@ const pantallas = {
     </form>
   </section>`,
 
- batalla: `<section class="batalla-section">
+  batalla: `<section class="batalla-section">
   <h1>Batalla Pokémon</h1>
   <p>Pikachu se enfrenta a Charmander.</p>
   <div id="opciones-batalla">
@@ -185,7 +185,7 @@ function jugarBatalla(etapa) {
       <div id="opciones-batalla">${botones}</div>
     </section>`;
 
-  document.querySelector("#opciones-batalla").addEventListener("click", function(event) {
+  document.querySelector("#opciones-batalla").addEventListener("click", function (event) {
     if (event.target.className === "btn-detalle") {
       jugarBatalla(event.target.value);
     }
@@ -200,7 +200,7 @@ function cargarPokedex() {
     let tipos = "";
 
     for (let tipo of p.tipo) {
-      tipos += `<span class="type type-${tipo.toLowerCase()}">${tipo}</span>`;
+      tipos += `<span class="type type-${tipo}">${tipo}</span>`;
     }
 
     tarjetas += `
@@ -221,7 +221,7 @@ function cargarPokedex() {
   const galeria = document.querySelector("#pokedex-gallery");
   galeria.innerHTML = tarjetas;
 
-  galeria.addEventListener("click", function(event) {
+  galeria.addEventListener("click", function (event) {
     if (event.target.className === "btn-detalle") {
       mostrarDetalle(parseInt(event.target.value));
     }
@@ -266,7 +266,7 @@ function mostrarDetalle(id) {
           </div>
         </article>`;
 
-      document.querySelector("#volver-pokedex").addEventListener("click", function() {
+      document.querySelector("#volver-pokedex").addEventListener("click", function () {
         mostrar("pokedex");
       });
 
@@ -425,10 +425,10 @@ function mostrar(pantalla) {
   }
 
   if (pantalla === "batalla") {
-  document.querySelector("#btn-comenzar-batalla").addEventListener("click", function() {
-    jugarBatalla("turno1");
-  });
-}
+    document.querySelector("#btn-comenzar-batalla").addEventListener("click", function () {
+      jugarBatalla("turno1");
+    });
+  }
 
   if (pantalla === "landing" && usuarioActivo !== null) {
     let rol = "Usuario";
@@ -445,12 +445,12 @@ function mostrar(pantalla) {
       document.querySelector(".landing").innerHTML += `
         <button id="btn-carga" class="btn-detalle">Cargar Pokémon</button>`;
 
-      document.querySelector("#btn-carga").addEventListener("click", function() {
+      document.querySelector("#btn-carga").addEventListener("click", function () {
         mostrar("carga");
       });
     }
 
-    document.querySelector("#btn-salir").addEventListener("click", function() {
+    document.querySelector("#btn-salir").addEventListener("click", function () {
       usuarioActivo = null;
       mostrar("landing");
     });
@@ -469,7 +469,7 @@ const enlaces = {
 };
 
 for (let id in enlaces) {
-  document.querySelector("#" + id).addEventListener("click", function(event) {
+  document.querySelector("#" + id).addEventListener("click", function (event) {
     event.preventDefault();
     mostrar(enlaces[id]);
   });
